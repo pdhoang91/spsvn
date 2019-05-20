@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<style>
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>
+<body>
+
+<p>Try to change the names.</p>
+
+<div ng-app="myApp" ng-controller="myCtrl" ng-init="myCol='yellow';age=27;person={firstName:'John',lastName:'Doe'};points=[1,15,19,2,40];mySwitch=true">
+
+First Name: <input type="text" ng-model="firstName"><br>
+Last Name: <input type="text" ng-model="lastName"><br>
+Age: <input type="number" ng-model="age"><br>
+Favorite Color: <input style="background-color:{{myCol}}" ng-model="myCol">
+<br>
+<br>
+<p ng-click="changeName()">Full Name: {{firstName + " " + lastName + " " + person.lastName}}, Age: {{ age }}, Color: {{myCol}}</p>
+<p>Innit Objects: {{person.firstName + " " + person.lastName + " " + points[2]}}, and <span ng-bind="points[4]"></span> </p>
+<p w3-test-directive ></p>
+<p>Looping with ng-repeat:</p>
+<ul><li ng-repeat="x in names">{{ x| uppercase }}</li></ul>
+
+<h3 ng-click="changeName()">change when click: {{firstName}}</h3>
+<h3>Test sort country</h3>
+<table border="1" width="100%">
+<tr>
+<th ng-click="orderByMe('name')">Name</th>
+<th ng-click="orderByMe('country')">Country</th>
+</tr>
+<tr ng-repeat="x in sortCountry | orderBy:myOrderBy">
+<td>{{x.name}}</td>
+<td>{{x.country}}</td>
+</tr>
+</table>
+<h3>Type a letter in the input field:</h3>
+<p><input type="text" ng-model="test"></p>
+
+<ul>
+  <li ng-repeat="x in filters | filter:test">
+    {{ x }}
+  </li>
+</ul>
+<h4>https://www.w3schools.com/angular/angular_services.asp</h4>
+
+<p>Display a new message after two seconds:</p>
+<h4>{{myHeader}}</h4>
+<p>Display the time every second</p>
+<h4>{{theTime}}</h4>
+<p>create my searvice:converts a given number into a hexadecimal number</p>
+<h4>{{hex}}</h4>
+
+<select ng-model="selectedName" ng-options="x for x in names"></select>
+<select ng-model="selectedCar">
+<br>
+<option ng-repeat="x in cars" value="{{x.model}}">{{x.model}}</option>
+</select>
+<h4>You selected: {{selectedCar}}</h4>
+
+<h1>https://www.w3schools.com/angular/angular_htmldom.asp</h1>
+
+<p><button ng-disabled="mySwitch">Click Me!</button></p>
+<p><input type="checkbox" ng-model="mySwitch"/>Button</p>
+<p>{{ mySwitch }}</p>
+
+<p ng-show="true">I am visible.</p>
+<p ng-show="false">I am not visible.</p>
+
+<p ng-show="age > 20">Show me when age > 20.</p>
+
+<p ng-hide="true">I am not visible.</p>
+<p ng-hide="false">I am visible.</p>
+
+<h1>Some even you should know: </h1>
+<h3 ng-mousemove="count = count + 1" ng-click="myFunction()">ng-blur,ng-change,ng-click,ng-copy,ng-cut,ng-dblclick,ng-focus,ng-keydown,ng-keypress,ng-keyup,ng-mousedown,ng-mouseenter,ng-mouseleave,ng-mousemove,ng-mouseover,ng-mouseup,ng-paste</h3>
+
+<h4>Mouse Over Me! {{count}}</h4>
+
+<button ng-click="myFunc2()">Click Me!</button>
+
+<div ng-show="showMe">
+    <h1>Menu:</h1>
+    <div>Pizza</div>
+    <div>Pasta</div>
+    <div>Pesce</div>
+</div>
+
+<h3 ng-mousemove="myFunc3($event)">Mouse Over Me!</h3>
+<p>Coordinates: {{x + ', ' + y}}</p>\
+
+<h3>Some apt you should know: angular.lowercase(),angular.uppercase(),angular.isString(),angular.isNumber()</h3>
+
+<p>{{ x1 }}</p>
+<p>{{ x2 }}</p>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+var app = angular.module('myApp', []);
+
+app.service('myService', function() {
+    this.myFunc = function (x) {
+        return x.toString(16);
+    }
+});
+
+app.controller('myCtrl', function($scope, $timeout, $interval, myService) {
+    $scope.firstName= "Hoang";
+    $scope.lastName= "Pham";
+    $scope.names = ["Emil", "Tobias", "Linus"];
+    $scope.sortCountry = [
+        {name:'Jani',country:'Norway'},
+        {name:'Carl',country:'Sweden'},
+        {name:'Margareth',country:'England'}
+        ];
+     $scope.cars = [
+        {model : "Ford Mustang", color : "red"},
+        {model : "Fiat 500", color : "white"},
+        {model : "Volvo XC90", color : "black"}
+    ];
+     $scope.orderByMe = function(x) {
+        $scope.myOrderBy = x;
+    }
+     $scope.filters = ['Jani','Carl','Margareth','Hege','Joe','Gustav','Birgit','Mary','Kai'
+    ];
+    $scope.changeName = function() {
+    	$scope.firstName = "Nelly";
+    }
+	$scope.myHeader = "Hello World!";
+ 		 $timeout(function () {
+     	 $scope.myHeader = "How are you today?";
+  	}, 2000);
+    $scope.theTime = new Date().toLocaleTimeString();
+  	$interval(function () {
+      $scope.theTime = new Date().toLocaleTimeString();
+  	}, 1000);
+    $scope.hex = myService.myFunc(255553434343435);
+    $scope.myFunction = function() {
+    	alert("hihi");
+  	}
+  
+  	$scope.showMe = false;
+    	$scope.myFunc2 = function() {
+        $scope.showMe = !$scope.showMe;
+    }
+    
+     $scope.myFunc3 = function(myE) {
+        $scope.x = myE.clientX;
+        $scope.y = myE.clientY;
+    }
+    
+    $scope.x1 = "JOHN";
+    $scope.x2 = angular.lowercase($scope.x1);
+    
+});
+
+app.directive("w3TestDirective", function() {
+    return {
+        template : "<h3>I was made in a directive constructor!</h3>"
+    };
+});
+
+
+</script>
+
+</body>
+</html>
