@@ -1,0 +1,127 @@
+package PhucTran;
+
+import java.util.LinkedList;
+import java.util.Objects;
+import java.util.Queue;
+
+
+public class Solution {
+    
+    public static void main(String[] args) {
+           //System.out.println(converIntegerToBinary(7)); 
+           // System.out.println(converIntegerToBinary(8)); 
+           //System.out.println(compareTwoNumberToInteger(7, 8));
+           System.out.println(solution(5, 8));
+        
+    }
+    
+    public static int solution(int M, int N) {
+
+
+        int k = N - M;
+        
+        Queue<Integer> que1 = new LinkedList<>();
+        Queue<Integer> que2 = new LinkedList<>();
+        que1.add(M);
+        while(M < N) {
+            M = M +1;
+            que1.add(M);
+            System.out.println(M);
+        }
+        boolean flag = false;
+        int result = 0;
+        while(!(que1.isEmpty() && que2.isEmpty()) || flag) {
+            
+   
+        
+        while(!que1.isEmpty()) {
+            int a = que1.poll();
+            if(que1.isEmpty()) {
+                que2.add(a);
+            } else {
+                int b = que1.poll();
+                que2.add(compareTwoNumberToInteger(a,b));
+            }    
+            } 
+        
+        if(que1.isEmpty() && !que2.isEmpty()) {
+            result = que2.poll();
+             System.out.println("----" + result);
+            if(que2.isEmpty()) {
+                flag = true;
+            } else {
+                 que2.add(result);
+            }
+        } 
+        
+    while(!que2.isEmpty()) {
+            int a = que2.poll();
+            if(que2.isEmpty()) {
+                que1.add(a);
+            } else {
+                int b = que2.poll();
+                que1.add(compareTwoNumberToInteger(a,b));
+            }
+        }
+        
+        if (!que1.isEmpty() && que2.isEmpty()) {
+            result = que1.poll();
+             System.out.println("----" + result);
+            if(que1.isEmpty()) {
+                flag = true;
+            } else {
+                que1.add(result);
+            }
+        }
+        
+        
+        }
+        
+
+        
+        return result;
+    }
+    
+    private static int compareTwoNumberToInteger(int M, int N) {
+        String binaryM = converIntegerToBinary(M);
+        String binaryN = converIntegerToBinary(N);
+
+        
+        int k = binaryM.length() - binaryN.length();
+        
+        if(k > 0) {
+            for(int i = 0; i <= k ; i++) {
+                binaryN = 0 + binaryN;
+            }
+        } else if (k < 0) {
+            int h = -k;
+            for(int index = 0; index < h ; index++) {
+                binaryM = 0 + binaryM;
+            }
+        }
+        
+        String c = "";
+        
+        for(int i = 0; i < binaryM.length(); i++) {
+            int a = Integer.valueOf(binaryM.charAt(i));
+            int b = Integer.valueOf(binaryN.charAt(i));
+            if(a != b) {
+                c = c + 1;
+            } else {
+                c = c + 0;
+            }
+        }
+        return  Integer.parseInt(c,2);
+    }
+    
+    
+    private static String converIntegerToBinary(int n) {
+        String x = "";
+        while(n > 0) {
+            int a = n % 2;
+            x = a + x;
+            n = n / 2;
+        }
+        return x;
+    }
+}

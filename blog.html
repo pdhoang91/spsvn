@@ -1,0 +1,30 @@
+
+ <div id="brinza-task-description">
+<p><b>XOR</b> is a standard operation on bits. If X and Y are two bits (1s or 0s), then X <b>XOR</b> Y equals 1 when X ≠ Y. Otherwise X <b>XOR</b> Y = 0.<br>
+</p>
+<blockquote><p>0 <b>XOR</b> 1 = 1 <b>XOR</b> 0 = 1 <br>
+ 0 <b>XOR</b> 0 = 1 <b>XOR</b> 1 = 0</p></blockquote>
+<p>The <b>XOR</b> operation can be extended to non-negative integers. Let K and L be two such integers, and A and B their binary representations. (For the sake of simplicity, if one of them is shorter, let us add some leading zeros, so that A and B are of the same length.) The <i>bitwise</i> <b>XOR</b> of K and L (denoted as K <b>bitxor</b> L) is defined in the following way: We build a sequence of bits C by taking the <b>XOR</b> of bits from A and B at the same positions. C is a binary representation of K <b>bitxor</b> L.</p>
+<p>For example, for K = 12 and L = 21 we obtain:</p>
+<tt style="white-space:pre-wrap">  A = 01100
+  B = 10101
+  C = 11001</tt>
+<p>and C is a binary representation of  K <b>bitxor</b> L = 25.</p>
+<p>Now we can define the <i>bitwise</i> <b>XOR</b> <i>product</i>. If M and N are two  non-negative integers, such that M ≤ N, then their <i>bitwise</i> <b>XOR</b> <i>product</i> is the bitwise <b>XOR</b> of all integers from M to N: <br>
+</p>
+<blockquote><p>M&nbsp;<b>bitxor</b>&nbsp;(M+1)&nbsp;<b>bitxor</b>&nbsp;...&nbsp;<b>bitxor</b>&nbsp;(N−1)&nbsp;<b>bitxor</b>&nbsp;N <br>
+</p></blockquote>
+<p>Note that the bitwise <b>XOR</b> is associative; that is, the order in which this operation is performed does not matter.</p>
+<p>For example, the bitwise <b>XOR</b> product of M = 5 and N = 8 is 12, because:</p>
+<tt style="white-space:pre-wrap">  5 bitxor 6 bitxor 7 bitxor 8 =
+      3      bitxor     15     =
+               12</tt>
+<p>Write a function:</p>
+<blockquote><p style="font-family: monospace; font-size: 9pt; display: block; white-space: pre-wrap"><tt>class Solution { public int solution(int M, int N); }</tt></p></blockquote>
+<p>that, given two non-negative integers M and N, returns their bitwise <b>XOR</b> product.</p>
+<p>For example, given M = 5 and N = 8, the function should return 12, as explained in the example above.</p>
+<p>Write an <b><b>efficient</b></b> algorithm for the following assumptions:</p>
+<blockquote><ul style="margin: 10px;padding: 0px;"><li>M and N are integers within the range [<span class="number">0</span>..<span class="number">1,000,000,000</span>];</li>
+<li>M ≤ N.</li>
+</ul>
+</blockquote></div>
